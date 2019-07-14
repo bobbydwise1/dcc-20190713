@@ -27,29 +27,32 @@ const createNumberList = (sizeOfList) => {
   return numberList;
 };
 
+//var myList = createNumberList(3); //use this for fixed length for debug
 var myList = createNumberList(listLimit);
 console.log('myList = ', myList);
 
-const addTopTwo = (yourList) => {
-  if (yourList.length < 2) {
-    return [0,0]
+const addTopTwo = (myList) => {
+  if (myList.length < 2) {
+    return [0,0];
   };
-  top1 = yourList[0];
-  top2 = yourList[1];
-  for (i = 0; i < yourList.length; i++ ) {
-    if (yourList[i] >= top1) {
-      top2 = top1;
-      top1 = yourList[i];
-    };
-  };
+  yourList = myList.slice(); //don't mutate myList
+  top1 = Math.max(...yourList);
+  console.log('top1 = ', top1)
+  for ( i = 0; i < yourList.length; i++ ) {
+    if (yourList[i] === top1) {
+      yourList.splice(i,1);
+      break;
+    }
+  }
+  //console.log('what is left of myList = ', myList)
+  //console.log('what is left of yourList = ', yourList)
+  top2 = Math.max(...yourList);
   return [top1,top2];
 };
 
 var tops = addTopTwo(myList);
 
-
 console.log('top1, top2 = ', tops, 'sum = ', tops[0]+tops[1]);
-
 
 $(document).ready(function() {
   $('#output-section-1').text(myList);
